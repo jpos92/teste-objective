@@ -1,0 +1,49 @@
+<div *ngIf="character$ | async as character" class="container emp-profile">
+	<form method="post">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="profile-img mb-3">
+					<img src="{{character.thumbnail?.path}}.{{character.thumbnail?.extension}}" alt="hero_image" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				<h3>{{ character.name }}</h3>
+				<div class="profile-head">
+					<h6 *ngIf="character.description; else noDescription">{{ character.description }}</h6>
+					<ng-template #noDescription>
+						<h6>Personagem sem descrição.</h6>
+					</ng-template>
+				</div>
+				<h6 class="mt-4">Modificado(a) em {{ character.modified | date: 'dd/MM/yyyy' }}</h6>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 profile-head">
+				<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="repos-tab" data-bs-toggle="tab" data-bs-target="#repos"
+							type="button" role="tab" aria-controls="repos" aria-selected="true">Quadrinhos</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="starred-tab" data-bs-toggle="tab" data-bs-target="#starred"
+							type="button" role="tab" aria-controls="starred" aria-selected="true">Series</button>
+					</li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="repos" role="tabpanel" aria-labelledby="repos-tab">
+						<div class="flex-cards">
+							<app-comic-card *ngFor="let comic of comics$ | async" [comic]="comic"></app-comic-card>
+						</div>
+						<button class="btn btn-dark mt-3">Ver mais...</button>
+					</div>
+					<div class="tab-pane fade" id="starred" role="tabpanel" aria-labelledby="starred-tab">
+						<div class="flex-cards">
+							<app-serie-card *ngFor="let serie of series$ | async" [serie]="serie"></app-serie-card>
+						</div>
+						<button class="btn btn-dark mt-3">Ver mais...</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

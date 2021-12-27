@@ -1,0 +1,9 @@
+<div class='card' style="background-image: url('{{ character.thumbnail?.path }}.{{ character.thumbnail?.extension }}');" (click)="goToDetails()">
+  <div class='info'>
+    <h5 class='title'>{{ character.name }}</h5>
+    <p *ngIf="character.description; else noDescription" class='description'>{{ character.description }}</p>
+    <ng-template #noDescription>
+      <p class="description">Sem descrição.</p>
+    </ng-template>
+  </div>
+</div>

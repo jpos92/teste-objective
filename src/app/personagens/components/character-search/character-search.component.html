@@ -1,0 +1,17 @@
+<div class="search-form mb-3">
+  <form [formGroup]="searchForm" (ngSubmit)="searchByName()">
+    <label for="characterName" class="form-label">Nome do personagem:</label>
+    <input type="text" formControlName="characterName" class="form-control" id="characterName" placeholder="Ex: Abyss">
+  </form>
+</div>
+<div *ngIf="characterService._characterList.length > 0; else noHero">
+  <div class="cards">
+    <app-character-card *ngFor="let character of characterService._characterList" [character]="character">
+    </app-character-card>
+  </div>
+  <button class="btn btn-dark mt-3 mb-5" (click)="loadMore()">Carregar mais</button>
+</div>
+
+<ng-template #noHero>
+  <h6>Nenhum registro encontrado!</h6>
+</ng-template>
